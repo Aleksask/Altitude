@@ -26,7 +26,7 @@ namespace Altitude.Tests
                 NodeDef personNodeDef = altitude.CreateNodeDef("Person");
 
                 DateTime startTime = DateTime.Now;
-                TimeSpan timeSpan =  TimeSpan.FromSeconds(10);
+                TimeSpan timeSpan = TimeSpan.FromSeconds(10);
                 while (DateTime.Now < startTime + timeSpan)
                 {
                     altitude.CreateNode(personNodeDef);
