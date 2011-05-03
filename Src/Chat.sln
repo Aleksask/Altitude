@@ -1,0 +1,50 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chat.WebUI", "Chat\Chat.WebUI\Chat.WebUI.csproj", "{E83B0D90-D2C3-483B-8B25-E3AAA4BA3CC9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Main", "Main", "{5C69B333-B38F-48F5-8CBC-6CA92416BA82}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{43E85587-AC7D-475F-BAA7-69E75C284F1F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "References", "References", "{BF4152BA-7D77-422A-A6B5-EAF6483025A0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Altitude.Air", "Altitude\Altitude.Air\Altitude.Air.csproj", "{A4DEB585-0932-4DA0-96E7-3C2A82E43130}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Altitude.Common", "Altitude\Altitude.Common\Altitude.Common.csproj", "{0A5EE4CE-4AA0-4C49-8DFE-DC00EB9404B3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Altitude.Crust", "Altitude\Altitude.Crust\Altitude.Crust.csproj", "{AFF61BBE-8B88-4780-8334-2871CE202228}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E83B0D90-D2C3-483B-8B25-E3AAA4BA3CC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E83B0D90-D2C3-483B-8B25-E3AAA4BA3CC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E83B0D90-D2C3-483B-8B25-E3AAA4BA3CC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E83B0D90-D2C3-483B-8B25-E3AAA4BA3CC9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4DEB585-0932-4DA0-96E7-3C2A82E43130}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4DEB585-0932-4DA0-96E7-3C2A82E43130}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4DEB585-0932-4DA0-96E7-3C2A82E43130}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4DEB585-0932-4DA0-96E7-3C2A82E43130}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A5EE4CE-4AA0-4C49-8DFE-DC00EB9404B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A5EE4CE-4AA0-4C49-8DFE-DC00EB9404B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A5EE4CE-4AA0-4C49-8DFE-DC00EB9404B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A5EE4CE-4AA0-4C49-8DFE-DC00EB9404B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFF61BBE-8B88-4780-8334-2871CE202228}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFF61BBE-8B88-4780-8334-2871CE202228}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFF61BBE-8B88-4780-8334-2871CE202228}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFF61BBE-8B88-4780-8334-2871CE202228}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E83B0D90-D2C3-483B-8B25-E3AAA4BA3CC9} = {5C69B333-B38F-48F5-8CBC-6CA92416BA82}
+		{A4DEB585-0932-4DA0-96E7-3C2A82E43130} = {BF4152BA-7D77-422A-A6B5-EAF6483025A0}
+		{0A5EE4CE-4AA0-4C49-8DFE-DC00EB9404B3} = {BF4152BA-7D77-422A-A6B5-EAF6483025A0}
+		{AFF61BBE-8B88-4780-8334-2871CE202228} = {BF4152BA-7D77-422A-A6B5-EAF6483025A0}
+	EndGlobalSection
+EndGlobal

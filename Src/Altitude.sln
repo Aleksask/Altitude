@@ -1,13 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Air", "Altitude\Air\Air.csproj", "{A4DEB585-0932-4DA0-96E7-3C2A82E43130}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Air.Tests", "Altitude.Tests\Air\Air.Tests.csproj", "{5ECF741E-32FB-420C-8852-24FDE4F37CB7}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Main", "Main", "{D5001AD1-23E3-4D46-A8BC-973270F80163}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{62AE715C-BC36-45A3-9A37-0809447E5F84}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Altitude.Common", "Altitude\Altitude.Common\Altitude.Common.csproj", "{0A5EE4CE-4AA0-4C49-8DFE-DC00EB9404B3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Altitude.Air", "Altitude\Altitude.Air\Altitude.Air.csproj", "{A4DEB585-0932-4DA0-96E7-3C2A82E43130}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Altitude.Crust", "Altitude\Altitude.Crust\Altitude.Crust.csproj", "{AFF61BBE-8B88-4780-8334-2871CE202228}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AltitudeTests.Air", "AltitudeTests\AltitudeTests.Air\AltitudeTests.Air.csproj", "{5ECF741E-32FB-420C-8852-24FDE4F37CB7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,10 +19,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0A5EE4CE-4AA0-4C49-8DFE-DC00EB9404B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A5EE4CE-4AA0-4C49-8DFE-DC00EB9404B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A5EE4CE-4AA0-4C49-8DFE-DC00EB9404B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A5EE4CE-4AA0-4C49-8DFE-DC00EB9404B3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A4DEB585-0932-4DA0-96E7-3C2A82E43130}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A4DEB585-0932-4DA0-96E7-3C2A82E43130}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A4DEB585-0932-4DA0-96E7-3C2A82E43130}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A4DEB585-0932-4DA0-96E7-3C2A82E43130}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFF61BBE-8B88-4780-8334-2871CE202228}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFF61BBE-8B88-4780-8334-2871CE202228}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFF61BBE-8B88-4780-8334-2871CE202228}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFF61BBE-8B88-4780-8334-2871CE202228}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5ECF741E-32FB-420C-8852-24FDE4F37CB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5ECF741E-32FB-420C-8852-24FDE4F37CB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5ECF741E-32FB-420C-8852-24FDE4F37CB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -28,7 +40,9 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{0A5EE4CE-4AA0-4C49-8DFE-DC00EB9404B3} = {D5001AD1-23E3-4D46-A8BC-973270F80163}
 		{A4DEB585-0932-4DA0-96E7-3C2A82E43130} = {D5001AD1-23E3-4D46-A8BC-973270F80163}
+		{AFF61BBE-8B88-4780-8334-2871CE202228} = {D5001AD1-23E3-4D46-A8BC-973270F80163}
 		{5ECF741E-32FB-420C-8852-24FDE4F37CB7} = {62AE715C-BC36-45A3-9A37-0809447E5F84}
 	EndGlobalSection
 EndGlobal
