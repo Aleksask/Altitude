@@ -15,6 +15,8 @@ namespace Altitude.Tests
         [Test]
         public static void TestCase1()
         {
+            // Test update
+
             AltitudeConfiguration config = new AltitudeConfiguration()
             {
             };
