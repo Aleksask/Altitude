@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Altitude
+namespace Altitude.Air
 {
     public class Node : Entity
     {
@@ -12,8 +12,8 @@ namespace Altitude
         private readonly List<Edge> _outEdges;
         private readonly List<Edge> _inEdges;
 
-        public Node(Altitude altitude, NodeDef def)
-            : base(altitude)
+        public Node(Air air, NodeDef def)
+            : base(air)
         {
             _nodeDef = def;
             _properties = new Dictionary<string, object>();
@@ -61,7 +61,7 @@ namespace Altitude
 
         public Property GetProperty(PropertyDef propertyDefinition)
         {
-            return new Property(Altitude, propertyDefinition, _properties[propertyDefinition.Name]);
+            return new Property(Air, propertyDefinition, _properties[propertyDefinition.Name]);
         }
 
         internal void AddInEdge(Edge edge)

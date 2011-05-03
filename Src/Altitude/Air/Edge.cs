@@ -1,13 +1,13 @@
 using System;
 
-namespace Altitude
+namespace Altitude.Air
 {
     public class Edge : Entity
     {
         private readonly EdgeDef _edgeDef;
 
-        public Edge(Altitude altitude, EdgeDef def, Node inNode, Node outNode)
-            : base(altitude)
+        public Edge(Air air, EdgeDef def, Node inNode, Node outNode)
+            : base(air)
         {
             _edgeDef = def;
             In = inNode;

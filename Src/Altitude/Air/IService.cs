@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Altitude.IO
+namespace Altitude.Air
 {
-    class NodeWriter
+    public interface IService
     {
     }
 }

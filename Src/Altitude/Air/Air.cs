@@ -2,18 +2,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Altitude
+namespace Altitude.Air
 {
-    public class Altitude : IDisposable
+    public class Air : IDisposable
     {
-        private AltitudeConfiguration _configuration;
+        private AirConfiguration _configuration;
         private List<IService> _services;
         private Dictionary<string, NodeDef> _nodeDefsByName;
         private Dictionary<string, EdgeDef> _edgeDefsByName;
         private Dictionary<string, PropertyDef> _propertyDefsByName;
         private List<Node> _nodes;
 
-        public Altitude(AltitudeConfiguration config)
+        public Air(AirConfiguration config)
         {
             _configuration = config;
             _services = new List<IService>();
@@ -25,7 +25,7 @@ namespace Altitude
             Workers = CreateWorkers();
         }
 
-        public AltitudeConfiguration Configuration
+        public AirConfiguration Configuration
         {
             get { return _configuration; }
         }

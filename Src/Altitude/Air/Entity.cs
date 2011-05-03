@@ -1,18 +1,19 @@
 using System;
-namespace Altitude
+
+namespace Altitude.Air
 {
     public abstract class Entity
     {
-        private readonly Altitude _altitude;
+        private readonly Air _air;
 
-        public Entity(Altitude altitude)
+        public Entity(Air air)
         {
-            _altitude = altitude;
+            _air = air;
         }
 
-        public Altitude Altitude
+        public Air Air
         {
-            get { return _altitude; }
+            get { return _air; }
         }
 
         public object GetProperty(string name)

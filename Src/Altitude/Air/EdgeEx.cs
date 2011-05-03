@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 
-namespace Altitude
+namespace Altitude.Air
 {
     public static class EdgeEx
     {

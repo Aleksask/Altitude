@@ -1,19 +1,20 @@
 using System;
-namespace Altitude
+
+namespace Altitude.Air
 {
     public class Property
     {
-        private readonly Altitude _altitude;
+        private readonly Air _altitude;
         private readonly PropertyDef _propertyDef;
 
-        public Property(Altitude altitude, PropertyDef def, object value)
+        public Property(Air altitude, PropertyDef def, object value)
         {
             _altitude = altitude;
             _propertyDef = def;
             Value = value;
         }
 
-        public Altitude Altitude
+        public Air Air
         {
             get { return _altitude; }
         }

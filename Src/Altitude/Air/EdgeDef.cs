@@ -1,20 +1,20 @@
 using System;
 
-namespace Altitude
+namespace Altitude.Air
 {
     public class EdgeDef
     {
-        private readonly Altitude _altitude;
+        private readonly Air _air;
 
-        public EdgeDef(Altitude altitude, string name)
+        public EdgeDef(Air air, string name)
         {
-            _altitude = altitude;
+            _air = air;
             Name = name;
         }
 
-        public Altitude Altitude
+        public Air Air
         {
-            get { return _altitude; }
+            get { return _air; }
         }
 
         public string Name
@@ -25,7 +25,7 @@ namespace Altitude
 
         public Edge CreateEdge(Node source, Node destination)
         {
-            return new Edge(Altitude, this, source, destination);
+            return new Edge(Air, this, source, destination);
         }
     }
 }

@@ -1,9 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Altitude", "Altitude\Altitude.csproj", "{A4DEB585-0932-4DA0-96E7-3C2A82E43130}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Air", "Altitude\Air\Air.csproj", "{A4DEB585-0932-4DA0-96E7-3C2A82E43130}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Altitude.Tests", "Altitude.Tests\Altitude.Tests.csproj", "{5ECF741E-32FB-420C-8852-24FDE4F37CB7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Air.Tests", "Altitude.Tests\Air\Air.Tests.csproj", "{5ECF741E-32FB-420C-8852-24FDE4F37CB7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Main", "Main", "{D5001AD1-23E3-4D46-A8BC-973270F80163}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{62AE715C-BC36-45A3-9A37-0809447E5F84}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,5 +26,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A4DEB585-0932-4DA0-96E7-3C2A82E43130} = {D5001AD1-23E3-4D46-A8BC-973270F80163}
+		{5ECF741E-32FB-420C-8852-24FDE4F37CB7} = {62AE715C-BC36-45A3-9A37-0809447E5F84}
 	EndGlobalSection
 EndGlobal
