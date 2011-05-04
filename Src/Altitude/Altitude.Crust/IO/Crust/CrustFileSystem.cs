@@ -23,13 +23,46 @@
 //
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.IO;
+using Altitude.IO;
 
-namespace Altitude.IO.Crust
+namespace Altitude.IO.Local
 {
-    class CrustFileSystem
+	public class CrustFileSystem : FileSystem
     {
+		public override FileSystemStream OpenFile (Path path, FileMode mode)
+		{
+			throw new System.NotImplementedException();
+		}
+		
+		public override FileSystemStream CreateFile (Path path)
+		{
+			throw new System.NotImplementedException();
+		}
+		
+		public override Directory CreateDirectory (Path path)
+		{
+			throw new System.NotImplementedException();
+		}
+		
+		public override bool Exists (Path path)
+		{
+			throw new System.NotImplementedException();
+		}
+		
+		public override void Delete (Path path)
+		{
+			throw new System.NotImplementedException();
+		}
+		
+		public override FileInfo GetFileInfo (Path path)
+		{
+			throw new System.NotImplementedException();
+		}
+		
+		public override FileBlock[] GetFileBlocks (FileInfo fileInfo)
+		{
+			throw new System.NotImplementedException();
+		}
     }
 }

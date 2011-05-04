@@ -23,13 +23,84 @@
 //
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using Altitude.IO;
 
 namespace Altitude.IO.Local
 {
-    public class LocalFileSystem : FileSystem
-    {
-    }
+	public class LocalFileSystem : FileSystem
+	{
+		private readonly Uri m_basePath;
+
+		public LocalFileSystem(string basePathUri)
+			:this(new Uri(basePathUri))
+		{
+		}
+
+		public LocalFileSystem(Uri basePath)
+		{
+			m_basePath = basePath;
+
+			if (!System.IO.Directory.Exists(m_basePath.LocalPath))
+				System.IO.Directory.CreateDirectory(m_basePath.LocalPath);
+		}
+
+		public override Directory CreateDirectory(Path path)
+		{
+			System.IO.Directory.CreateDirectory(ToLocalPath(path));
+			return new Directory(this, path);
+		}
+
+		public override bool Exists(Path path)
+		{
+			return System.IO.File.Exists(ToLocalPath(path));
+		}
+
+		public override FileSystemStream OpenFile(Path path, FileMode mode)
+		{
+			return new LocalFileSystemStream(System.IO.File.Open(ToLocalPath(path), ToLocalFileMode(mode)));
+		}
+
+		public override FileSystemStream CreateFile(Path path)
+		{
+			return new LocalFileSystemStream(System.IO.File.Create(ToLocalPath(path)));
+		}
+
+		public override void Delete(Path path)
+		{
+			System.IO.File.Delete(ToLocalPath(path));
+		}
+
+		public override FileInfo GetFileInfo(Path path)
+		{
+			var fileInfo = new System.IO.FileInfo(ToLocalPath(path));
+			return new FileInfo(path, fileInfo.Length);
+		}
+
+		public override FileBlock[] GetFileBlocks(FileInfo fileInfo)
+		{
+			return new []{new FileBlock(0, fileInfo.Length)};
+		}
+
+		private string ToLocalPath(Path path)
+		{
+			return (new Uri(m_basePath, path.Uri)).LocalPath;
+		}
+
+		private static System.IO.FileMode ToLocalFileMode(FileMode mode)
+		{
+			switch (mode)
+			{
+				case FileMode.Append:
+					return System.IO.FileMode.Append;
+				case FileMode.CreateNew:
+					return System.IO.FileMode.CreateNew;
+				case FileMode.Open:
+					return System.IO.FileMode.Open;
+				case FileMode.OpenOrCreate:
+					return System.IO.FileMode.OpenOrCreate;
+				default:
+					throw new NotSupportedException();
+			}
+		}
+	}
 }

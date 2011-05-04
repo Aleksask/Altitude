@@ -22,14 +22,22 @@
 //
 //
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 namespace Altitude.IO
 {
-    public abstract class FileSystem
-    {
-    }
+	public abstract class FileSystem
+	{
+		public abstract FileSystemStream OpenFile(Path path, FileMode mode);
+
+		public abstract FileSystemStream CreateFile(Path path);
+
+		public abstract Directory CreateDirectory(Path path);
+
+		public abstract bool Exists(Path path);
+
+		public abstract void Delete(Path path);
+
+		public abstract FileInfo GetFileInfo(Path path);
+
+		public abstract FileBlock[] GetFileBlocks(FileInfo fileInfo);
+	}
 }

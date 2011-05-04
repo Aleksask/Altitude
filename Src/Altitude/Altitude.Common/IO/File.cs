@@ -22,14 +22,31 @@
 //
 //
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 namespace Altitude.IO
 {
-    public class File
-    {
-    }
+	public class File
+	{
+		private readonly FileSystem _fs;
+		private readonly Path _path;
+
+		public File(FileSystem fs, Path path)
+		{
+			_fs = fs;
+			_path = path;
+		}
+
+		public Path Path
+		{
+			get { return _path; }
+		}
+
+		public void Delete()
+		{
+			_fs.Delete(Path);
+		}
+	}
 }
+
+
+
+
