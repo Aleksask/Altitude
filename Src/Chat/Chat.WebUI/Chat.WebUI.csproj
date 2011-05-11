@@ -30,6 +30,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Jayrock, Version=0.9.12915.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Lib\Jayrock\Jayrock.dll</HintPath>
+    </Reference>
+    <Reference Include="Jayrock.Json, Version=0.9.12915.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Lib\Jayrock\Jayrock.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Core">
@@ -53,18 +61,17 @@
     <Reference Include="System.Web.Mobile" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Default.aspx" />
+    <Content Include="Default.htm" />
+    <Content Include="jquery-1.6.js" />
+    <Content Include="jquery-ui-1.8.12.custom.min.js" />
+    <Content Include="sizzle.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Default.aspx.cs">
-      <SubType>ASPXCodeBehind</SubType>
-      <DependentUpon>Default.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Default.aspx.designer.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="request.ashx.cs">
+      <DependentUpon>request.ashx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Altitude\Altitude.Air\Altitude.Air.csproj">
@@ -75,6 +82,18 @@
       <Project>{0A5EE4CE-4AA0-4C49-8DFE-DC00EB9404B3}</Project>
       <Name>Altitude.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Chat.Main\Chat.Main.csproj">
+      <Project>{704841F7-1D0D-42F0-89B1-E32085AF4B43}</Project>
+      <Name>Chat.Main</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="request.ashx" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="wikipediaOntology.owl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

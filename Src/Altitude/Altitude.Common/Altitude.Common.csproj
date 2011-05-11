@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -58,6 +58,10 @@
     <Compile Include="IO\Local\LocalFileSystemException.cs" />
     <Compile Include="IO\Local\LocalFileSystemStream.cs" />
     <Compile Include="IO\Path.cs" />
+    <Compile Include="Collections\IPrefixMatcher.cs" />
+    <Compile Include="Collections\PrefixMatcher.cs" />
+    <Compile Include="Collections\Trie.cs" />
+    <Compile Include="Collections\TrieNode.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
