@@ -13,16 +13,16 @@ namespace Chat.Main.IO
         private XmlReader _reader;
         private int _id;
         private string _name;
-        private List<int> _isAIds;
+        private List<long> _isAIds;
 
         public RdfCategoryReader(XmlReader reader)
         {
             _reader = reader;
-            _isAIds = new List<int>();
+            _isAIds = new List<long>();
             _reader.MoveToContent();
         }
 
-        public int Id
+        public long Id
         {
             get { return _id; }
         }
@@ -32,7 +32,7 @@ namespace Chat.Main.IO
             get { return _name; }
         }
 
-        public IList<int> IsAIds
+        public IList<long> IsAIds
         {
             get { return _isAIds; }
         }
