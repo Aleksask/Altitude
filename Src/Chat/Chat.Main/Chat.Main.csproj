@@ -66,19 +66,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Main\Basic\BasicCategory.cs" />
-    <Compile Include="Main\Basic\BasicCategoryFactory.cs" />
-    <Compile Include="Main\Basic\BasicChatApp.cs" />
-    <Compile Include="Main\Basic\BasicMessage.cs" />
-    <Compile Include="Main\Basic\BasicMessageFactory.cs" />
+    <Compile Include="Main\Model\Category.cs" />
+    <Compile Include="Main\Model\CategoryFactory.cs" />
+    <Compile Include="Main\Model\CategoryWithParents.cs" />
+    <Compile Include="Main\Model\Message.cs" />
+    <Compile Include="Main\Model\MessageFactory.cs" />
+    <Compile Include="Main\IO\WikipediaCategoryCursor.cs" />
+    <Compile Include="Main\IO\Cursor.cs" />
     <Compile Include="Main\Model\ICategoryFactory.cs" />
+    <Compile Include="Main\Model\ICategoryWithParentCategories.cs" />
     <Compile Include="Main\Model\IChatApp.cs" />
-    <Compile Include="Main\Basic\CategoryIndex.cs" />
-    <Compile Include="Main\IO\ICategoryReader.cs" />
-    <Compile Include="Main\IO\RdfCategoryReader.cs" />
+    <Compile Include="Main\Providers\CategoryProvider.cs" />
+    <Compile Include="Main\IO\RdfCategoryCursor.cs" />
     <Compile Include="Main\Model\ICategory.cs" />
     <Compile Include="Main\Model\IMessage.cs" />
     <Compile Include="Main\Model\IMessageFactory.cs" />
+    <Compile Include="Main\Providers\CategoryProviderFactory.cs" />
+    <Compile Include="Main\Providers\ICategoryProvider.cs" />
+    <Compile Include="Main\ChatApp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

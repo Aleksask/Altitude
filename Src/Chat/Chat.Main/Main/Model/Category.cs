@@ -26,14 +26,32 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Chat.Main.Model;
 
 namespace Chat.Main.Model
 {
     /// <summary>
-    /// Defines a creator of messages
+    /// Defines a category
     /// </summary>
-    public interface IMessageFactory
+    public class Category : ICategory
     {
-        IMessage CreateMessage(long id, string value, long[] categoryIds);
+        private long _id;
+        private string _name;
+
+        public Category(long id, string name)
+        {
+            _id = id;
+            _name = name;
+        }
+
+        public long Id
+        {
+            get { return _id; }
+        }
+
+        public string Name
+        {
+            get { return _name; }
+        }
     }
 }

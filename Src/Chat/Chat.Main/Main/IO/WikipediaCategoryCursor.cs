@@ -26,14 +26,26 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml;
+using Chat.Main.IO;
+using Chat.Main.Model;
 
-namespace Chat.Main.Model
+namespace Chat.Main.IO
 {
     /// <summary>
-    /// Defines a creator of messages
+    /// Reads categories from the wikipediaOntology.owl embedded resource
     /// </summary>
-    public interface IMessageFactory
+    public class WikipediaCategoryCursor : RdfCategoryCursor
     {
-        IMessage CreateMessage(long id, string value, long[] categoryIds);
+        public WikipediaCategoryCursor()
+            : base(GetReader())
+        {
+        }
+
+        private static XmlReader GetReader()
+        {
+            using (var stream = typeof(WikipediaCategoryCursor).Assembly.GetManifestResourceStream("Chat.Main.Resources.wikipediaOntology.owl"))
+                return XmlReader.Create(stream);
+        }
     }
 }

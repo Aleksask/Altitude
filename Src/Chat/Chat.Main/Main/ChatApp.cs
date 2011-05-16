@@ -26,14 +26,50 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Chat.Main.Model;
+using Chat.Main.Providers;
 
-namespace Chat.Main.Model
+namespace Chat.Main
 {
     /// <summary>
-    /// Defines a creator of messages
+    /// A basic chat application
     /// </summary>
-    public interface IMessageFactory
+    public class ChatApp : IChatApp
     {
-        IMessage CreateMessage(long id, string value, long[] categoryIds);
+        private ICategoryProvider _categoryProvider;
+       
+        public ChatApp(ICategoryProvider categoryProvider)
+        {
+            _categoryProvider = categoryProvider;
+        }
+        
+        public IEnumerable<ICategory> GetSuggestedCategories(string value)
+        {
+            return _categoryProvider.GetSuggestedCategories(value);
+        }
+
+        public IEnumerable<ICategory> GetChildCategories(long categoryId)
+        {
+            return _categoryProvider.GetChildCategories(categoryId).Select(f => _categoryProvider.GetCategory(f));          
+        }
+
+        public IEnumerable<ICategory> GetParentCategories(long categoryId)
+        {
+            return _categoryProvider.GetParentCategories(categoryId).Select(f => _categoryProvider.GetCategory(f));
+        }
+
+        public IEnumerable<IMessage> GetMessages(long[] categoryIds)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void PostMessage(string message, long[] categoryIds)
+        {
+            throw new NotImplementedException();
+        }
+        
+        public void Dispose()
+        {
+        }
     }
 }

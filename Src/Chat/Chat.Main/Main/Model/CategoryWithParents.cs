@@ -26,14 +26,27 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Chat.Main.IO;
+using Chat.Main.Model;
 
 namespace Chat.Main.Model
 {
     /// <summary>
-    /// Defines a creator of messages
+    /// Defines a category with links to its parent categories
     /// </summary>
-    public interface IMessageFactory
+    public class CategoryWithParents : Category, ICategoryWithParentCategories
     {
-        IMessage CreateMessage(long id, string value, long[] categoryIds);
+        private IList<long> _parentIds;
+
+        public CategoryWithParents(long id, string name, IEnumerable<long> parentIds)
+            : base(id, name)
+        {
+            _parentIds = parentIds.ToList();
+        }
+
+        public IList<long> ParentIds
+        {
+            get { return _parentIds; }
+        }
     }
 }

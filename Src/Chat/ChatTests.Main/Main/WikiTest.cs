@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Xml;
+using System.Linq;
 using Altitude.Collections;
 using NUnit.Framework;
 using Chat.Main;
 using Chat.Main.IO;
+using Chat.Main.Model;
+using Chat.Main.Providers;
 
 namespace ChatTests.Main
 {
@@ -16,42 +19,29 @@ namespace ChatTests.Main
         [Test]
 		public void Test()
 		{
-            CategoryIndex categoryIndex;
-            using (var file = new FileStream("../../wikipediaOntology.owl", FileMode.Open))
-            {
-                using (var categoryReader = new RdfCategoryReader(XmlReader.Create(file)))
-                {
-                    categoryIndex = new CategoryIndex(categoryReader);
-                }
-            }
-
-            categoryIndex.LabelIndex.Matcher.ResetMatch();
-            categoryIndex.LabelIndex.Matcher.NextMatch('C');
-            categoryIndex.LabelIndex.Matcher.NextMatch('o');
-            categoryIndex.LabelIndex.Matcher.NextMatch('m');
-            categoryIndex.LabelIndex.Matcher.NextMatch('p');
-
-            foreach (var item in categoryIndex.LabelIndex.Matcher.GetPrefixMatches())
+            var categoryIndex = GetCategoryIndex();
+            foreach (var category in categoryIndex.GetSuggestedCategories("Comp").Take(10))
 			{
-				var id = (int) item;
-                var name = categoryIndex.IdIndex[id].Replace("_", " ");
-				Debug.WriteLine(name);
+                Debug.WriteLine(category.Name);
 
-                if (categoryIndex.IsAIndexInverse.ContainsKey(id))
-				{
-                    foreach (var subItem in categoryIndex.IsAIndexInverse[id])
-                        Debug.WriteLine(name + "." + categoryIndex.IdIndex[subItem].Replace("_", " "));
-				}
+                foreach (var subItem in categoryIndex.GetChildCategories(category.Id))
+                    Debug.WriteLine(category.Name + "." + categoryIndex.GetCategory(subItem).Name);
 
-                if (categoryIndex.IsAIndex.ContainsKey(id))
-				{
-                    foreach (var subItem in categoryIndex.IsAIndex[id])
-                        Debug.WriteLine(name + ".." + categoryIndex.IdIndex[subItem].Replace("_", " "));
-				}
-
+                foreach (var subItem in categoryIndex.GetParentCategories(category.Id))
+                    Debug.WriteLine(category.Name + ".." + categoryIndex.GetCategory(subItem).Name);
+				
                 Debug.WriteLine("");
 			}
 		}
+
+        private ICategoryProvider GetCategoryIndex()
+        {
+            var index = new CategoryProvider(new CategoryFactory());
+            using (var categoryReader = new WikipediaCategoryCursor())
+                index.AddCategories(categoryReader);
+
+            return index;
+        }
 	}
 }
 

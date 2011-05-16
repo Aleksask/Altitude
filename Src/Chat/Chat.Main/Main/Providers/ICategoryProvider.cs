@@ -26,14 +26,21 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Chat.Main.Model;
 
-namespace Chat.Main.Model
+namespace Chat.Main.Providers
 {
     /// <summary>
-    /// Defines a creator of messages
+    /// Defines a provider able to lookup category information
     /// </summary>
-    public interface IMessageFactory
+    public interface ICategoryProvider
     {
-        IMessage CreateMessage(long id, string value, long[] categoryIds);
+        IEnumerable<ICategory> GetSuggestedCategories(string value);
+
+        ICategory GetCategory(long id);
+
+        IEnumerable<long> GetChildCategories(long id);
+
+        IEnumerable<long> GetParentCategories(long id);
     }
 }

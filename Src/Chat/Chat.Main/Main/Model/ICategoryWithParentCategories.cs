@@ -30,10 +30,10 @@ using System.Text;
 namespace Chat.Main.Model
 {
     /// <summary>
-    /// Defines a creator of messages
+    /// Defines a creator of categories with parent links
     /// </summary>
-    public interface IMessageFactory
+    public interface ICategoryWithParentCategories : ICategory
     {
-        IMessage CreateMessage(long id, string value, long[] categoryIds);
+        IList<long> ParentIds { get; }
     }
 }
