@@ -22,18 +22,29 @@
 //
 //
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using Chat.Main.Model;
 
-namespace Chat.Main.Model
+namespace Chat.Main.Services
 {
-    /// <summary>
-    /// Defines a creator of categories
-    /// </summary>
-    public interface ICategoryFactory
+    public class UserFactoryService : ServiceBase, IUserFactoryService
     {
-        ICategory CreateCategory(long id, string name);
+        private long _currentUserId;
+
+        public UserFactoryService(IServiceLocator serviceLocator) 
+            : base(serviceLocator)
+        {
+            _currentUserId = -1;
+        }
+
+        public ISignUpInfo CreateSignUpInfo(string username, string password, string emailAddress)
+        {
+            return new SignUpInfo(username, password, emailAddress);
+        }
+
+        public IUser CreateUser(ISignUpInfo signUpInfo)
+        {
+            _currentUserId++;
+            return new User(_currentUserId, signUpInfo.Username, signUpInfo.Password, signUpInfo.EmailAddress);
+        }
     }
 }

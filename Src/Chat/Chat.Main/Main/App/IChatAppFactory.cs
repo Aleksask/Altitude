@@ -22,15 +22,10 @@
 //
 //
 
-using System.Collections.Generic;
-
-namespace Chat.Main.Model
+namespace Chat.Main.App
 {
-    /// <summary>
-    /// Defines a creator of categories with parent links
-    /// </summary>
-    public interface ICategoryWithParentCategories : ICategory
+    public interface IChatAppFactory
     {
-        IList<long> ParentIds { get; }
+        IChatApp CreateChatApp();
     }
 }

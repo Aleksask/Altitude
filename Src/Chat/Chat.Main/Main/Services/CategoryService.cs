@@ -24,39 +24,39 @@
 
 using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Configuration;
 using System.Linq;
-using System.Web;
 using System.IO;
 using System.Text;
-using System.Xml.Linq;
 using Altitude.Collections;
-using Chat.Main.IO;
 using Chat.Main.Model;
+using Chat.Main.Services.Factories;
 
-namespace Chat.Main.Providers
+namespace Chat.Main.Services
 {
     /// <summary>
     /// Provides a fast lookup of category information
     /// </summary>
-    public class CategoryProvider : ICategoryProvider
+    public class CategoryService : ServiceBase, ICategoryService
     {
-        private ICategoryFactory _categoryFactory;
-        private Dictionary<long, ICategory> _idIndex;
-        private Trie<object> _labelIndex;
-        private Dictionary<long, List<long>> _isAIndex;
-        private Dictionary<long, List<long>> _isAIndexInverse;
+        private readonly Dictionary<long, ICategory> _idIndex;
+        private readonly Trie<object> _labelIndex;
+        private readonly Dictionary<long, List<long>> _isAIndex;
+        private readonly Dictionary<long, List<long>> _isAIndexInverse;
 
-        public CategoryProvider(ICategoryFactory categoryFactory)
+        public CategoryService(IServiceLocator serviceLocator) 
+            : base(serviceLocator)
         {
-            _categoryFactory = categoryFactory;
             _idIndex = new Dictionary<long, ICategory>();
             _labelIndex = new Trie<object>();
             _isAIndex = new Dictionary<long, List<long>>();
             _isAIndexInverse = new Dictionary<long, List<long>>();
         }
         
+        protected ICategoryFactoryService CategoryFactoryService
+        {
+            get { return ServiceLocator.GetService<ICategoryFactoryService>(); }
+        }
+
         public void AddCategories(IEnumerable<ICategoryWithParentCategories> categories)
         {
             foreach (var category in categories)
@@ -65,7 +65,7 @@ namespace Chat.Main.Providers
 
         public void AddCategory(ICategoryWithParentCategories category)
         {
-            _idIndex.Add(category.Id, _categoryFactory.CreateCategory(category.Id, category.Name));
+            _idIndex.Add(category.Id, CategoryFactoryService.CreateCategory(category.Id, category.Name));
             _labelIndex.Put(category.Name, category.Id);
 
             foreach (var parentId in category.ParentIds)
@@ -82,27 +82,20 @@ namespace Chat.Main.Providers
 
         private Dictionary<long, ICategory> IdIndex { get { return _idIndex; } }
 
-        private Trie<object> LabelIndex { get { return _labelIndex; } }
-
-        private Dictionary<long, List<long>> IsAIndex { get { return _isAIndex; } }
-
-        private Dictionary<long, List<long>> IsAIndexInverse { get { return _isAIndexInverse; } }
-
         private IEnumerable<long> GetMatches(string value)
         {
             _labelIndex.Matcher.ResetMatch();
             foreach (var chr in value.ToCharArray())
                 _labelIndex.Matcher.NextMatch(chr);
 
-            foreach (var item in _labelIndex.Matcher.GetPrefixMatches())
-                yield return (long)item;
+            return _labelIndex.Matcher.GetPrefixMatches().Cast<long>();
         }
 
         private static List<string> Split(string term)
         {
             var items = new List<string>();
             var reader = new StringReader(term);
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
 
             bool lastWasDot = false;
             int chr = reader.Read();
@@ -144,46 +137,45 @@ namespace Chat.Main.Providers
             return IdIndex[id];
         }
 
-        public IEnumerable<long> GetChildCategories(long id)
+        public IEnumerable<ICategory> GetChildCategories(ICategory category)
         {
             List<long> values;
-            if (_isAIndexInverse.TryGetValue(id, out values))
-                return values;
+            if (_isAIndexInverse.TryGetValue(category.Id, out values))
+                return values.Select(GetCategory);
 
-            return new List<long>();
+            return Enumerable.Empty<ICategory>();
         }
 
-        public IEnumerable<long> GetParentCategories(long id)
+        public IEnumerable<ICategory> GetParentCategories(ICategory category)
         {
             List<long> values;
-            if (_isAIndex.TryGetValue(id, out values))
-                return values;
+            if (_isAIndex.TryGetValue(category.Id, out values))
+                return values.Select(GetCategory);
 
-            return new List<long>();
+            return Enumerable.Empty<ICategory>();
         }
-                
+        
         public IEnumerable<ICategory> GetSuggestedCategories(string value)
         {
             // TODO : Needs rewrite
-            List<string> categoryTerms = Split(value);
-            List<long> ids = new List<long>();
+            var categoryTerms = Split(value);
+            var categories = new List<ICategory>();
             for (int i = 0; i < categoryTerms.Count; i++)
             {
                 if (categoryTerms[i] == ".")
-                    ids = GetChildCategories(ids[0]).ToList();
+                    categories = GetChildCategories(categories[0]).ToList();
                 else if (categoryTerms[i] == "..")
-                    ids = GetParentCategories(ids[0]).ToList();
+                    categories = GetParentCategories(categories[0]).ToList();
                 else
                 {
                     if (i == categoryTerms.Count - 1)
-                        ids = new List<long>(GetMatches(categoryTerms[i]).Take(100));
+                        categories = GetMatches(categoryTerms[i]).Take(100).Select(GetCategory).ToList();
                     else
-                        ids = new List<long>(GetMatches(categoryTerms[i]).Take(1));
+                        categories = GetMatches(categoryTerms[i]).Take(1).Select(GetCategory).ToList();
                 }
             }
 
-            foreach (var id in ids)
-                yield return GetCategory(id);
+            return categories;
         }
     }
 }

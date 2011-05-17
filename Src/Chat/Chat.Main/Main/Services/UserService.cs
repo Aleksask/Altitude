@@ -23,14 +23,45 @@
 //
 
 using System.Collections.Generic;
+using Chat.Main.Model;
 
-namespace Chat.Main.Model
+namespace Chat.Main.Services
 {
-    /// <summary>
-    /// Defines a creator of categories with parent links
-    /// </summary>
-    public interface ICategoryWithParentCategories : ICategory
+    public class UserService : ServiceBase, IUserService
     {
-        IList<long> ParentIds { get; }
+        private readonly IDictionary<long, IUser> _users;
+
+        public UserService(IServiceLocator serviceLocator) 
+            : base(serviceLocator)
+        {
+            _users = new Dictionary<long, IUser>();
+        }
+        
+        protected IUserFactoryService UserFactoryService
+        {
+            get { return ServiceLocator.GetService<IUserFactoryService>(); }
+        }
+
+        public ISignUpInfo CreateSignUpInfo(string username, string password, string emailAddress)
+        {
+            return UserFactoryService.CreateSignUpInfo(username, password, emailAddress);
+        }
+
+        public IUser AddUser(ISignUpInfo user)
+        {
+            var newUser = UserFactoryService.CreateUser(user);
+            _users.Add(newUser.Id, newUser);
+            return newUser;
+        }
+
+        public void RemoveUser(IUser user)
+        {
+            _users.Remove(user.Id);
+        }
+
+        public IUser GetUser(long userId)
+        {
+            return _users[userId];
+        }
     }
 }

@@ -24,11 +24,9 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Chat.Main.Model;
 
-namespace Chat.Main
+namespace Chat.Main.App
 {
     /// <summary>
     /// Defines a basic chat application facade
@@ -48,28 +46,25 @@ namespace Chat.Main
         /// <summary>
         /// Returns a set of child categories
         /// </summary>
-        /// <param name="category"></param>
         /// <returns></returns>
-        IEnumerable<ICategory> GetChildCategories(long categoryId);
+        IEnumerable<ICategory> GetChildCategories(ICategory category);
 
         /// <summary>
         /// Returns a set of parent categories
         /// </summary>
-        /// <param name="category"></param>
         /// <returns></returns>
-        IEnumerable<ICategory> GetParentCategories(long categoryId);
+        IEnumerable<ICategory> GetParentCategories(ICategory category);
 
         /// <summary>
         /// Gets all messages in chronological order that satisfy the specified categories
         /// </summary>
-        /// <param name="categories"></param>
         /// <returns></returns>
-        IEnumerable<IMessage> GetMessages(long[] categoryIds);
+        IEnumerable<IMessage> GetMessages(IEnumerable<ICategory> categories);
 
         /// <summary>
         /// Posts a message
         /// </summary>
         /// <param name="message"></param>
-        void PostMessage(string message, long[] categoryIds);
+        void PostMessage(IMessage message);
     }
 }

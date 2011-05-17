@@ -66,24 +66,43 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Main\App\ChatAppFactoryBase.cs" />
+    <Compile Include="Main\Services\MessageService.cs" />
+    <Compile Include="Main\App\WikipediaChatAppFactory.cs" />
     <Compile Include="Main\Model\Category.cs" />
-    <Compile Include="Main\Model\CategoryFactory.cs" />
+    <Compile Include="Main\Model\SignUpInfo.cs" />
+    <Compile Include="Main\Services\Factories\CategoryFactoryService.cs" />
     <Compile Include="Main\Model\CategoryWithParents.cs" />
+    <Compile Include="Main\App\IChatAppFactory.cs" />
+    <Compile Include="Main\Services\ConsoleLogService.cs" />
+    <Compile Include="Main\Services\ILogService.cs" />
+    <Compile Include="Main\Services\IServiceLocator.cs" />
+    <Compile Include="Main\Model\IUser.cs" />
     <Compile Include="Main\Model\Message.cs" />
-    <Compile Include="Main\Model\MessageFactory.cs" />
+    <Compile Include="Main\Services\Factories\MessageFactoryService.cs" />
     <Compile Include="Main\IO\WikipediaCategoryCursor.cs" />
     <Compile Include="Main\IO\Cursor.cs" />
-    <Compile Include="Main\Model\ICategoryFactory.cs" />
+    <Compile Include="Main\Services\Factories\ICategoryFactoryService.cs" />
     <Compile Include="Main\Model\ICategoryWithParentCategories.cs" />
-    <Compile Include="Main\Model\IChatApp.cs" />
-    <Compile Include="Main\Providers\CategoryProvider.cs" />
+    <Compile Include="Main\App\IChatApp.cs" />
+    <Compile Include="Main\Model\ISignUpInfo.cs" />
+    <Compile Include="Main\Services\IUserFactoryService.cs" />
+    <Compile Include="Main\Services\ServiceBase.cs" />
+    <Compile Include="Main\Services\ServiceLocator.cs" />
+    <Compile Include="Main\App\BasicChatAppFactory.cs" />
+    <Compile Include="Main\Services\CategoryService.cs" />
     <Compile Include="Main\IO\RdfCategoryCursor.cs" />
     <Compile Include="Main\Model\ICategory.cs" />
     <Compile Include="Main\Model\IMessage.cs" />
-    <Compile Include="Main\Model\IMessageFactory.cs" />
-    <Compile Include="Main\Providers\CategoryProviderFactory.cs" />
-    <Compile Include="Main\Providers\ICategoryProvider.cs" />
-    <Compile Include="Main\ChatApp.cs" />
+    <Compile Include="Main\Services\Factories\IMessageFactoryService.cs" />
+    <Compile Include="Main\Services\ICategoryService.cs" />
+    <Compile Include="Main\App\ChatApp.cs" />
+    <Compile Include="Main\Services\IMessageService.cs" />
+    <Compile Include="Main\Services\IService.cs" />
+    <Compile Include="Main\Services\IUserService.cs" />
+    <Compile Include="Main\Model\User.cs" />
+    <Compile Include="Main\Services\UserFactoryService.cs" />
+    <Compile Include="Main\Services\UserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

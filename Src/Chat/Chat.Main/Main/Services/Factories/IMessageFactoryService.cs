@@ -22,15 +22,15 @@
 //
 //
 
-using System.Collections.Generic;
+using Chat.Main.Model;
 
-namespace Chat.Main.Model
+namespace Chat.Main.Services.Factories
 {
     /// <summary>
-    /// Defines a creator of categories with parent links
+    /// Defines a creator of messages
     /// </summary>
-    public interface ICategoryWithParentCategories : ICategory
+    public interface IMessageFactoryService : IService
     {
-        IList<long> ParentIds { get; }
+        IMessage CreateMessage(long id, string value, long[] categoryIds);
     }
 }

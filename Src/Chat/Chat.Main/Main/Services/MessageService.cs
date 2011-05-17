@@ -24,52 +24,25 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Chat.Main.Model;
-using Chat.Main.Providers;
 
-namespace Chat.Main
+namespace Chat.Main.Services
 {
-    /// <summary>
-    /// A basic chat application
-    /// </summary>
-    public class ChatApp : IChatApp
+    public class MessageService : ServiceBase, IMessageService
     {
-        private ICategoryProvider _categoryProvider;
-       
-        public ChatApp(ICategoryProvider categoryProvider)
+        public MessageService(IServiceLocator serviceLocator) 
+            : base(serviceLocator)
         {
-            _categoryProvider = categoryProvider;
-        }
-        
-        public IEnumerable<ICategory> GetSuggestedCategories(string value)
-        {
-            return _categoryProvider.GetSuggestedCategories(value);
         }
 
-        public IEnumerable<ICategory> GetChildCategories(long categoryId)
-        {
-            return _categoryProvider.GetChildCategories(categoryId).Select(f => _categoryProvider.GetCategory(f));          
-        }
-
-        public IEnumerable<ICategory> GetParentCategories(long categoryId)
-        {
-            return _categoryProvider.GetParentCategories(categoryId).Select(f => _categoryProvider.GetCategory(f));
-        }
-
-        public IEnumerable<IMessage> GetMessages(long[] categoryIds)
+        public IEnumerable<IMessage> GetMessages(IEnumerable<ICategory> categories)
         {
             throw new NotImplementedException();
         }
 
-        public void PostMessage(string message, long[] categoryIds)
+        public void PostMessage(IMessage message)
         {
             throw new NotImplementedException();
-        }
-        
-        public void Dispose()
-        {
         }
     }
 }

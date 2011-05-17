@@ -22,15 +22,14 @@
 //
 //
 
-using System.Collections.Generic;
+using Chat.Main.Model;
 
-namespace Chat.Main.Model
+namespace Chat.Main.Services
 {
-    /// <summary>
-    /// Defines a creator of categories with parent links
-    /// </summary>
-    public interface ICategoryWithParentCategories : ICategory
+    public interface IUserFactoryService : IService
     {
-        IList<long> ParentIds { get; }
+        ISignUpInfo CreateSignUpInfo(string username, string password, string emailAddress);
+
+        IUser CreateUser(ISignUpInfo signUpInfo);
     }
 }

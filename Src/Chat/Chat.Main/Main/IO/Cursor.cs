@@ -24,8 +24,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Chat.Main.IO
 {
@@ -35,16 +33,16 @@ namespace Chat.Main.IO
     /// <typeparam name="T"></typeparam>
     public abstract class Cursor<T> : IEnumerable<T>, IDisposable
     {
-        private class CursorEnumerator<T> : IEnumerator<T>
+        private class CursorEnumerator<TInner> : IEnumerator<TInner>
         {
-            private Cursor<T> _cursor;
+            private readonly Cursor<TInner> _cursor;
 
-            public CursorEnumerator(Cursor<T> cursor)
+            public CursorEnumerator(Cursor<TInner> cursor)
             {
                 _cursor = cursor;
             }
 
-            public T Current
+            public TInner Current
             {
                 get { return _cursor.Value; }
             }
@@ -70,7 +68,7 @@ namespace Chat.Main.IO
 
         }
 
-        private T _cursor;
+        private readonly T _cursor;
 
         protected Cursor(T cursor)
         {

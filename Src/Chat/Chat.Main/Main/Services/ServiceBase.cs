@@ -1,5 +1,4 @@
-﻿//
-// Copyright (C) 2011 Thomas Mitchell
+﻿// Copyright (C) 2011 Thomas Mitchell
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -22,15 +21,20 @@
 //
 //
 
-using System.Collections.Generic;
-
-namespace Chat.Main.Model
+namespace Chat.Main.Services
 {
-    /// <summary>
-    /// Defines a creator of categories with parent links
-    /// </summary>
-    public interface ICategoryWithParentCategories : ICategory
+    public abstract class ServiceBase : IService
     {
-        IList<long> ParentIds { get; }
+        private readonly IServiceLocator _serviceLocator;
+
+        protected ServiceBase(IServiceLocator serviceLocator)
+        {
+            _serviceLocator = serviceLocator;
+        }
+
+        public IServiceLocator ServiceLocator
+        {
+            get { return _serviceLocator; }
+        }
     }
 }

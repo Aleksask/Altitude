@@ -22,10 +22,7 @@
 //
 //
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Xml;
 using Chat.Main.Model;
 
@@ -38,7 +35,7 @@ namespace Chat.Main.IO
     {
         class CategoryWithParentCategoriesCursor : ICategoryWithParentCategories
         {
-            private  IList<long> _parentIds;
+            private readonly IList<long> _parentIds;
             private  long _id;
             private  string _name;
 
@@ -68,9 +65,9 @@ namespace Chat.Main.IO
 
         }
 
-        private static string _classString = @"http://www.eml-research.de/WikipediaOntology/Class#_";
-        private static string _individualString = @"http://www.eml-research.de/WikipediaOntology/Individual#:_";
-        private XmlReader _reader;
+        private const string _classString = @"http://www.eml-research.de/WikipediaOntology/Class#_";
+        private const string _individualString = @"http://www.eml-research.de/WikipediaOntology/Individual#:_";
+        private readonly XmlReader _reader;
 
         public RdfCategoryCursor(XmlReader reader)
             : base(new CategoryWithParentCategoriesCursor())
@@ -140,9 +137,12 @@ namespace Chat.Main.IO
                 _reader.Close();
         }
 
-        public void Dispose()
+        protected override void  Dispose(bool disposing)
         {
-            Close();
+            if (disposing)
+                Close();
+
+            base.Dispose(disposing);
         }
     }
 }

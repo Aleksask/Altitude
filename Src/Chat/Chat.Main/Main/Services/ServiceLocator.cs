@@ -22,15 +22,28 @@
 //
 //
 
+using System;
 using System.Collections.Generic;
 
-namespace Chat.Main.Model
+namespace Chat.Main.Services
 {
-    /// <summary>
-    /// Defines a creator of categories with parent links
-    /// </summary>
-    public interface ICategoryWithParentCategories : ICategory
+    public class ServiceLocator : IServiceLocator
     {
-        IList<long> ParentIds { get; }
+        private readonly Dictionary<Type, IService> _services;
+
+        public ServiceLocator()
+        {
+            _services = new Dictionary<Type, IService>();
+        }
+
+        public void RegisterService<T>(T service) where T : IService
+        {
+            _services.Add(typeof(T), service);
+        }
+
+        public T GetService<T>() where T : IService
+        {
+            return (T)_services[typeof(T)];
+        }
     }
 }

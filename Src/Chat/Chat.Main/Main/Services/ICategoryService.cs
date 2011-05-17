@@ -23,14 +23,21 @@
 //
 
 using System.Collections.Generic;
+using Chat.Main.Model;
 
-namespace Chat.Main.Model
+namespace Chat.Main.Services
 {
     /// <summary>
-    /// Defines a creator of categories with parent links
+    /// Defines a provider able to lookup category information
     /// </summary>
-    public interface ICategoryWithParentCategories : ICategory
+    public interface ICategoryService : IService
     {
-        IList<long> ParentIds { get; }
+        IEnumerable<ICategory> GetSuggestedCategories(string value);
+
+        ICategory GetCategory(long id);
+
+        IEnumerable<ICategory> GetChildCategories(ICategory category);
+
+        IEnumerable<ICategory> GetParentCategories(ICategory category);
     }
 }

@@ -22,22 +22,41 @@
 //
 //
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Chat.Main.Model;
-
 namespace Chat.Main.Model
 {
-    /// <summary>
-    /// Creates categories
-    /// </summary>
-    public class CategoryFactory : ICategoryFactory
+    public class User : IUser
     {
-        public ICategory CreateCategory(long id, string name)
+        private readonly long _id;
+        private readonly string _username;
+        private readonly string _password;
+        private readonly string _emailAddress;
+
+        public User(long id, string username, string password, string emailAddress)
         {
-            return new Category(id, name);
+            _id = id;
+            _username = username;
+            _password = password;
+            _emailAddress = emailAddress;
+        }
+
+        public long Id
+        {
+            get { return _id; }
+        }
+
+        public string Username
+        {
+            get { return _username; }
+        }
+
+        public string Password
+        {
+            get { return _password; }
+        }
+
+        public string EmailAddress
+        {
+            get { return _emailAddress; }
         }
     }
 }

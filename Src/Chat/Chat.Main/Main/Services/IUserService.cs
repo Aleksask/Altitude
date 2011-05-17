@@ -1,5 +1,4 @@
-﻿//
-// Copyright (C) 2011 Thomas Mitchell
+﻿// Copyright (C) 2011 Thomas Mitchell
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -22,25 +21,18 @@
 //
 //
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Chat.Main.Model;
 
-namespace Chat.Main.Providers
+namespace Chat.Main.Services
 {
-    /// <summary>
-    /// Defines a provider able to lookup category information
-    /// </summary>
-    public interface ICategoryProvider
+    public interface IUserService : IService
     {
-        IEnumerable<ICategory> GetSuggestedCategories(string value);
+        ISignUpInfo CreateSignUpInfo(string username, string password, string emailAddress);
 
-        ICategory GetCategory(long id);
+        IUser AddUser(ISignUpInfo user);
 
-        IEnumerable<long> GetChildCategories(long id);
+        void RemoveUser(IUser user);
 
-        IEnumerable<long> GetParentCategories(long id);
+        IUser GetUser(long id);
     }
 }

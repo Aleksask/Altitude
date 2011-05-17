@@ -1,5 +1,4 @@
-﻿//
-// Copyright (C) 2011 Thomas Mitchell
+﻿// Copyright (C) 2011 Thomas Mitchell
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -22,15 +21,25 @@
 //
 //
 
-using System.Collections.Generic;
+using System;
 
-namespace Chat.Main.Model
+namespace Chat.Main.Services
 {
-    /// <summary>
-    /// Defines a creator of categories with parent links
-    /// </summary>
-    public interface ICategoryWithParentCategories : ICategory
+    public class ConsoleLogService : ServiceBase, ILogService
     {
-        IList<long> ParentIds { get; }
+        public ConsoleLogService(IServiceLocator serviceLocator) 
+            : base(serviceLocator)
+        {
+        }
+
+        public void Debug(string format)
+        {
+            Console.WriteLine(format);
+        }
+
+        public void Debug(string format, params string[] args)
+        {
+            Console.WriteLine(string.Format(format, args));
+        }
     }
 }

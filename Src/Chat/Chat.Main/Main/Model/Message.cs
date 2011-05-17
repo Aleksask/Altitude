@@ -22,16 +22,10 @@
 //
 //
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Chat.Main.Model;
-
 namespace Chat.Main.Model
 {
     /// <summary>
-    /// Defines a message
+    /// Defines a format
     /// </summary>
     class Message : IMessage
     {

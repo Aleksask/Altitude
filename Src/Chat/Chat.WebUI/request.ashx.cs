@@ -22,25 +22,15 @@
 //
 //
 
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Data;
-using System.Linq;
 using System.IO;
-using System.Text;
 using System.Web;
 using System.Web.Services;
-using System.Web.Services.Protocols;
-using System.Xml;
-using System.Xml.Linq;
 using Chat.Main;
-using Chat.Main.IO;
+using Chat.Main.App;
 using Chat.Main.Model;
-using Chat.Main.Providers;
+using Chat.Main.Services;
 using Jayrock.Json;
-using Jayrock.JsonRpc;
-using Jayrock.JsonRpc.Web;
 
 namespace Chat.WebUI
 {
@@ -52,9 +42,9 @@ namespace Chat.WebUI
     public class request : IHttpHandler 
     {
         private static IChatApp _chatApp;
-        private static object _chatAppLocker = new object();
+        private static readonly object _chatAppLocker = new object();
 
-        private IChatApp GetChatApp()
+        private static IChatApp GetChatApp()
         {
             if (_chatApp != null)
                 return _chatApp;
@@ -64,18 +54,17 @@ namespace Chat.WebUI
                 if (_chatApp != null)
                     return _chatApp;
 
-                _chatApp = new ChatApp(GetCategoryProvider());
+                _chatApp = GetChatAppFactory().CreateChatApp();
             }
 
             return _chatApp;
         }
 
-        private ICategoryProvider GetCategoryProvider()
+        private static IChatAppFactory GetChatAppFactory()
         {
-            return CategoryProviderFactory.CreateFromHardCoded();
-            // return CategoryProviderFactory.CreateFromWikipedia();
+            return new BasicChatAppFactory();
         }
-        
+
         public bool IsReusable
         {
             get { return true; }
@@ -88,7 +77,7 @@ namespace Chat.WebUI
             WriteCategories(categories, context.Response.Output);
         }
 
-        private void WriteCategories(IEnumerable<ICategory> categories, TextWriter writer)
+        private static void WriteCategories(IEnumerable<ICategory> categories, TextWriter writer)
         {
             using (var jsonWriter = new JsonTextWriter(writer))
             {

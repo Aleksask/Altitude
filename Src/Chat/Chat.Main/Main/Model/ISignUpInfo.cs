@@ -22,18 +22,14 @@
 //
 //
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 namespace Chat.Main.Model
 {
-    /// <summary>
-    /// Defines a creator of messages
-    /// </summary>
-    public interface IMessageFactory
+    public interface ISignUpInfo
     {
-        IMessage CreateMessage(long id, string value, long[] categoryIds);
+        string Username { get; }
+
+        string Password { get; }
+
+        string EmailAddress { get; }
     }
 }

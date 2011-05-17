@@ -22,15 +22,12 @@
 //
 //
 
-using System.Collections.Generic;
-
-namespace Chat.Main.Model
+namespace Chat.Main.Services
 {
-    /// <summary>
-    /// Defines a creator of categories with parent links
-    /// </summary>
-    public interface ICategoryWithParentCategories : ICategory
+    public interface IServiceLocator
     {
-        IList<long> ParentIds { get; }
+        void RegisterService<T>(T service) where T : IService;
+
+        T GetService<T>() where T : IService;
     }
 }
