@@ -29,9 +29,9 @@ namespace Chat.Main.Model
     /// </summary>
     public class Category : ICategory
     {
-        private long _id;
-        private string _name;
-
+        private readonly long _id;
+        private readonly string _name;
+        
         public Category(long id, string name)
         {
             _id = id;
@@ -46,6 +46,11 @@ namespace Chat.Main.Model
         public string Name
         {
             get { return _name; }
+        }
+
+        public override string ToString()
+        {
+            return string.Format("[{0}, {1}]", Id, Name);
         }
     }
 }

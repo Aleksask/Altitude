@@ -5,136 +5,76 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 		<meta charset="utf-8"/>
         <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
+        <link href="style.css" rel="stylesheet" type="text/css"/>
 		<script src="jquery-1.6.js"></script>
 		<script src="jquery-ui-1.8.12.custom.min.js"></script>
         <!--<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>-->
   		<!--<script src="sizzle.js"></script>-->
-		<style type="text/css">
-
-.doc-main {
-width: 500px;
-}
-				
-.msg-box h2 {
-font: bold 18px Helvetica Neue,Helvetica,sans-serif;
-text-shadow: 0 1px 0 white;
-margin: 0 0 6px 0;
-color: #999;
-}
-
-.msg-box .msg-box-editor {
-border: 1px solid #CCC;
-border-radius: 4px;
--moz-border-radius: 4px;
--webkit-border-radius: 4px;
-padding: 8px;
--webkit-box-shadow: 0 1px white;
--moz-box-shadow: 0 1px white;
-box-shadow: 0 1px white;
-width: 482px;
-height: 56px;
-color: #222;
-font: 14px/18px "Helvetica Neue",Arial,sans-serif;
-outline: none;
-_width: 442px;
-overflow-x: hidden;
-overflow-y: auto;
-white-space: pre-wrap;
-word-wrap: break-word;
-}
-
-input, textarea, keygen, select, button, isindex, datagrid {
-margin: 0em;
-font: -webkit-small-control;
-color: initial;
-letter-spacing: normal;
-word-spacing: normal;
-line-height: normal;
-text-transform: none;
-text-indent: 0px;
-text-shadow: none;
-display: inline-block;
-text-align: -webkit-auto;
-}
-
-textarea {
--webkit-appearance: textarea;
-background-color: white;
-border: 1px solid;
--webkit-rtl-ordering: logical;
--webkit-user-select: text;
--webkit-box-orient: vertical;
-resize: auto;
-cursor: auto;
-padding: 2px;
-white-space: pre-wrap;
-word-wrap: break-word;
-}
-
-.msg-box textarea {
-resize: vertical;
-}
-
-a {
-color: #2D76B9;
-text-decoration: none;
-}
-
-.msg-box-button-area {
-text-align: right;
-}
-
-.button {
--moz-border-radius: 4px;
--khtml-border-radius: 4px;
--webkit-border-radius: 4px;
-background: #DDD url(../img/buttons/bg-btn.gif) repeat-x 0 0;
-border-color: #BBB #BBB #999;
-border-radius: 4px;
-border-style: solid;
-border-width: 1px;
-cursor: pointer;
-display: inline-block;
-font: 12px/15px Helvetica Neue,Arial,"Lucida Grande",Sans-serif;
-margin: 0;
-overflow: hidden;
-padding: 5px 9px 5px 9px;
-text-shadow: 0 1px #F0F0F0;
-color: #333!important;
--moz-box-shadow: 0 1px 0 #F8F8F8;
--wekbit-box-shadow: 0 1px 0 #F8F8F8;
-box-shadow: 0 1px 0 #F8F8F8;
-}
-
-.msg-button {
-font-weight: 300;
-font-size: 15px;
-padding: 6px 9px;
-}
-
-.btn-disabled, .button.disabled, .btn-disabled:hover, .button.disabled:hover, .btn-disabled:focus, .button.disabled:focus, form.submitting .submit.button {
-background: #DDD;
-border-color: #CCC;
-cursor: default;
-color: #AAA!important;
-text-shadow: none;
-}
-
-		</style>
 		<script>
-$(document).ready(function() {
+		    $(document).ready(function () {
+		        $("#hashtaginput").autocomplete({
+		            source: "request.ashx",
+		            minLength: 2,
+		            select: function (event, ui) {
 
-    $( "#hashtaginput" ).autocomplete({
-			source: "request.ashx",
-			minLength: 2,
-			select: function( event, ui ) {
-				
-			}
-		});
+		            }
+		        });
+		    });
+        </script>
+        <script>
+            $(function () {
+                window.Msg = Backbone.Model.extend({
+                });
 
-});
-  </script>
-	</head>
+                window.MsgList = Backbone.Collection.extend({
+                    model: Msg
+                });
+
+                window.Msgs = new MsgList;
+
+                window.MsgView = Backbone.View.extend({
+                    
+                    tagName: "li",
+                    
+                    template: _.template($('#item-template').html()),
+                    
+                    events: {},
+
+                    initialize: function() {
+                        _.bindAll(this, 'render', 'close');
+                        this.model.bind('change', this.render);
+                        this.model.view = this;
+                    },
+
+                    render: function() {
+                        $(this.el).html(this.template(this.model.toJSON()));
+                        this.setContent();
+                        return this;
+                    },
+
+                    setContent: function() {
+                        var content = this.model.get('content');
+                        this.$('.msg-content').text(content);
+                        this.input = this.$('.msg-content');
+                        this.input.bind('blur', this.close);
+                        this.input.val(content);
+                    }
+                });
+
+                window.AppView = Backbone.View.extend({
+
+                    el: $("#msgapp"),
+
+                    events: {},
+
+                    initialize: function() {
+
+                    },
+
+                });
+            });
+        </script>
+    </head>
 	<body>
 		<div id="doc">
 			<div id="doc-top">

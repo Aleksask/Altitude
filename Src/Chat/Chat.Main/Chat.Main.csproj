@@ -67,6 +67,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Main\App\ChatAppFactoryBase.cs" />
+    <Compile Include="Main\Collections\IPrefixMatcher.cs" />
+    <Compile Include="Main\Collections\PrefixMatcher.cs" />
+    <Compile Include="Main\Collections\Trie.cs" />
+    <Compile Include="Main\Collections\TrieNode.cs" />
+    <Compile Include="Main\Model\ICategoryInfo.cs" />
+    <Compile Include="Main\Model\CategoryInfo.cs" />
     <Compile Include="Main\Services\MessageService.cs" />
     <Compile Include="Main\App\WikipediaChatAppFactory.cs" />
     <Compile Include="Main\Model\Category.cs" />
@@ -101,15 +107,10 @@
     <Compile Include="Main\Services\IService.cs" />
     <Compile Include="Main\Services\IUserService.cs" />
     <Compile Include="Main\Model\User.cs" />
+    <Compile Include="Main\Services\ServiceNotFoundException.cs" />
     <Compile Include="Main\Services\UserFactoryService.cs" />
     <Compile Include="Main\Services\UserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Altitude\Altitude.Common\Altitude.Common.csproj">
-      <Project>{0A5EE4CE-4AA0-4C49-8DFE-DC00EB9404B3}</Project>
-      <Name>Altitude.Common</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

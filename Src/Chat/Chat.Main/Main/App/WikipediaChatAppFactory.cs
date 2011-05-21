@@ -22,6 +22,7 @@
 //
 //
 
+using System;
 using Chat.Main.IO;
 using Chat.Main.Services;
 using Chat.Main.Services.Factories;
@@ -76,9 +77,10 @@ namespace Chat.Main.App
             userService.AddUser(userService.CreateSignUpInfo("Mike", "MikesPassword", "mike@googlemail.com"));
 
             // Populate categories
-            var categoryService = (CategoryService)serviceLocator.GetService<ICategoryService>();
-            using (var categoryReader = new WikipediaCategoryCursor())
-                categoryService.AddCategories(categoryReader);
+            throw new NotImplementedException();
+            //var categoryService = (CategoryService)serviceLocator.GetService<ICategoryService>();
+            //using (var categoryReader = new WikipediaCategoryCursor())
+            //    categoryService.AddCategories(categoryReader);
 
             // Populate messages
             var messageService = serviceLocator.GetService<IMessageService>();

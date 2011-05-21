@@ -32,12 +32,39 @@ namespace Chat.Main.Services
     /// </summary>
     public interface ICategoryService : IService
     {
+        /// <summary>
+        /// Creates new categories based upon the categoryinfo structure
+        /// </summary>
+        /// <param name="categoryInfo"></param>
+        /// <returns></returns>
+        IEnumerable<ICategory> CreateCategory(ICategoryInfo categoryInfo);
+
+        /// <summary>
+        /// Gets a set of categories that match the specified search value
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         IEnumerable<ICategory> GetSuggestedCategories(string value);
 
+        /// <summary>
+        /// Gets a category
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         ICategory GetCategory(long id);
 
+        /// <summary>
+        /// Gets a categories children
+        /// </summary>
+        /// <param name="category"></param>
+        /// <returns></returns>
         IEnumerable<ICategory> GetChildCategories(ICategory category);
 
+        /// <summary>
+        /// Gets a categories parents
+        /// </summary>
+        /// <param name="category"></param>
+        /// <returns></returns>
         IEnumerable<ICategory> GetParentCategories(ICategory category);
     }
 }
