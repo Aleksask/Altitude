@@ -31,6 +31,6 @@ namespace Chat.Main.Services.Factories
     /// </summary>
     public interface IMessageFactoryService : IService
     {
-        IMessage CreateMessage(long id, string value, long[] categoryIds);
+        IMessage CreateMessage(IMessageInfo messageInfo);
     }
 }

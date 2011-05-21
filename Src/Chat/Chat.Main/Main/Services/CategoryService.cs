@@ -27,7 +27,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.IO;
 using System.Text;
-using Altitude.Collections;
+using Chat.Main.Collections;
 using Chat.Main.Model;
 using Chat.Main.Services.Factories;
 
@@ -39,6 +39,7 @@ namespace Chat.Main.Services
     public class CategoryService : ServiceBase, ICategoryService
     {
         private readonly Dictionary<long, ICategory> _idIndex;
+        private readonly Dictionary<string, ICategory> _nameIndex;
         private readonly Trie<object> _labelIndex;
         private readonly Dictionary<long, List<long>> _isAIndex;
         private readonly Dictionary<long, List<long>> _isAIndexInverse;
@@ -47,6 +48,7 @@ namespace Chat.Main.Services
             : base(serviceLocator)
         {
             _idIndex = new Dictionary<long, ICategory>();
+            _nameIndex = new Dictionary<string, ICategory>();
             _labelIndex = new Trie<object>();
             _isAIndex = new Dictionary<long, List<long>>();
             _isAIndexInverse = new Dictionary<long, List<long>>();
@@ -56,30 +58,7 @@ namespace Chat.Main.Services
         {
             get { return ServiceLocator.GetService<ICategoryFactoryService>(); }
         }
-
-        public void AddCategories(IEnumerable<ICategoryWithParentCategories> categories)
-        {
-            foreach (var category in categories)
-                AddCategory(category);
-        }
-
-        public void AddCategory(ICategoryWithParentCategories category)
-        {
-            _idIndex.Add(category.Id, CategoryFactoryService.CreateCategory(category.Id, category.Name));
-            _labelIndex.Put(category.Name, category.Id);
-
-            foreach (var parentId in category.ParentIds)
-            {
-                if (!_isAIndex.ContainsKey(category.Id))
-                    _isAIndex.Add(category.Id, new List<long>());
-                _isAIndex[category.Id].Add(parentId);
-
-                if (!_isAIndexInverse.ContainsKey(parentId))
-                    _isAIndexInverse.Add(parentId, new List<long>());
-                _isAIndexInverse[parentId].Add(category.Id);
-            }
-        }
-
+        
         private Dictionary<long, ICategory> IdIndex { get { return _idIndex; } }
 
         private IEnumerable<long> GetMatches(string value)
@@ -137,6 +116,21 @@ namespace Chat.Main.Services
             return IdIndex[id];
         }
 
+        public bool TryGetCategory(long id, out ICategory category)
+        {
+            return _idIndex.TryGetValue(id, out category);
+        }
+
+        public ICategory GetCategory(string name)
+        {
+            return _nameIndex[name];
+        }
+
+        public bool TryGetCategory(string name, out ICategory category)
+        {
+            return _nameIndex.TryGetValue(name, out category);
+        }
+
         public IEnumerable<ICategory> GetChildCategories(ICategory category)
         {
             List<long> values;
@@ -154,7 +148,64 @@ namespace Chat.Main.Services
 
             return Enumerable.Empty<ICategory>();
         }
-        
+
+        public IEnumerable<ICategory> CreateCategory(ICategoryInfo categoryInfo)
+        {
+            // NOTE : Requires a .ToList() here so that we force all to be created
+            return CreateCategory(categoryInfo, null).ToList();
+        }
+
+        private IEnumerable<ICategory> CreateCategory(ICategoryInfo categoryInfo, ICategory parentCategory)
+        {
+            var category = CategoryFactoryService.CreateCategory(categoryInfo);
+            _idIndex.Add(category.Id, category);
+            _nameIndex.Add(category.Name, category);
+            _labelIndex.Put(category.Name, category.Id);
+
+            if (parentCategory != null)
+            {
+                if (!_isAIndex.ContainsKey(category.Id))
+                    _isAIndex.Add(category.Id, new List<long>());
+                _isAIndex[category.Id].Add(parentCategory.Id);
+
+                if (!_isAIndexInverse.ContainsKey(parentCategory.Id))
+                    _isAIndexInverse.Add(parentCategory.Id, new List<long>());
+                _isAIndexInverse[parentCategory.Id].Add(category.Id);
+            }
+
+            yield return category;
+
+            foreach (var childCategoryInfo in categoryInfo.Children)
+            {
+                var childCategories = CreateCategory(childCategoryInfo, category);
+                foreach (var childCategory in childCategories)
+                    yield return childCategory;
+            }
+        }
+
+        //public void AddCategories(IEnumerable<ICategoryWithParentCategories> categories)
+        //{
+        //    foreach (var category in categories)
+        //        AddCategory(category);
+        //}
+
+        //public void AddCategory(ICategoryWithParentCategories category)
+        //{
+        //    _idIndex.Add(category.Id, CategoryFactoryService.CreateCategory(category.Id, category.Name));
+        //    _labelIndex.Put(category.Name, category.Id);
+
+        //    foreach (var parentId in category.ParentIds)
+        //    {
+        //        if (!_isAIndex.ContainsKey(category.Id))
+        //            _isAIndex.Add(category.Id, new List<long>());
+        //        _isAIndex[category.Id].Add(parentId);
+
+        //        if (!_isAIndexInverse.ContainsKey(parentId))
+        //            _isAIndexInverse.Add(parentId, new List<long>());
+        //        _isAIndexInverse[parentId].Add(category.Id);
+        //    }
+        //}
+
         public IEnumerable<ICategory> GetSuggestedCategories(string value)
         {
             // TODO : Needs rewrite

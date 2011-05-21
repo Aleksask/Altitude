@@ -41,9 +41,25 @@ namespace Chat.Main.Services
             _services.Add(typeof(T), service);
         }
 
+        public bool TryGetService<T>(out T service) where T : IService
+        {
+            IService value;
+            if (_services.TryGetValue(typeof(T), out value))
+            {
+                service = (T)value;
+                return true;
+            }
+            service = default(T);
+            return false;
+        }
+
         public T GetService<T>() where T : IService
         {
-            return (T)_services[typeof(T)];
+            T service;
+            if (TryGetService<T>(out service))
+                return service;
+
+            throw new ServiceNotFoundException(string.Format("'{0}' service not found",typeof(T).Name));
         }
     }
 }

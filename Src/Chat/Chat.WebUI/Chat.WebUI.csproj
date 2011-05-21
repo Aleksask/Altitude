@@ -16,6 +16,7 @@
     </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
+    <UseIISExpress>false</UseIISExpress>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -68,10 +69,14 @@
     <Reference Include="System.Web.Mobile" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="backbone.js" />
     <Content Include="Default.htm" />
     <Content Include="jquery-1.6.js" />
     <Content Include="jquery-ui-1.8.12.custom.min.js" />
+    <Content Include="json2.js" />
     <Content Include="sizzle.js" />
+    <Content Include="style.css" />
+    <Content Include="underscore.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -81,14 +86,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Altitude\Altitude.Air\Altitude.Air.csproj">
-      <Project>{A4DEB585-0932-4DA0-96E7-3C2A82E43130}</Project>
-      <Name>Altitude.Air</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Altitude\Altitude.Common\Altitude.Common.csproj">
-      <Project>{0A5EE4CE-4AA0-4C49-8DFE-DC00EB9404B3}</Project>
-      <Name>Altitude.Common</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Chat.Main\Chat.Main.csproj">
       <Project>{704841F7-1D0D-42F0-89B1-E32085AF4B43}</Project>
       <Name>Chat.Main</Name>

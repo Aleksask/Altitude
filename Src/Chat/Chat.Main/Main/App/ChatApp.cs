@@ -22,6 +22,7 @@
 //
 //
 
+using System;
 using System.Collections.Generic;
 using Chat.Main.Model;
 using Chat.Main.Services;
@@ -74,8 +75,8 @@ namespace Chat.Main.App
         {
             return MessageService.GetMessages(categories);
         }
-
-        public void PostMessage(IMessage message)
+        
+        public void PostMessage(IMessageInfo message)
         {
             MessageService.PostMessage(message);
         }

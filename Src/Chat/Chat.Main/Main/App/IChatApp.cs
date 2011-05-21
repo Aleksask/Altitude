@@ -65,6 +65,6 @@ namespace Chat.Main.App
         /// Posts a message
         /// </summary>
         /// <param name="message"></param>
-        void PostMessage(IMessage message);
+        void PostMessage(IMessageInfo message);
     }
 }

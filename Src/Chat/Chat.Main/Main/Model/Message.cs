@@ -22,6 +22,8 @@
 //
 //
 
+using System;
+
 namespace Chat.Main.Model
 {
     /// <summary>
@@ -29,20 +31,27 @@ namespace Chat.Main.Model
     /// </summary>
     class Message : IMessage
     {
-        private long _id;
-        private string _value;
-        private long[] _categoryIds;
+        private readonly long _id;
+        private readonly string _value;
+        private readonly long[] _categoryIds;
+        private readonly long _authorId;
 
-        public Message(long id, string value, long[] categoryIds)
+        public Message(long id, IMessageInfo messageInfo)
         {
             _id = id;
-            _value = value;
-            _categoryIds = categoryIds;
+            _authorId = messageInfo.AuthorId;
+            _value = messageInfo.Text;
+            _categoryIds = messageInfo.CategoryIds;
         }
 
         public long Id
         {
             get { return _id; }
+        }
+
+        public long AuthorId
+        {
+            get { return _authorId; }
         }
 
         public string Value
