@@ -72,23 +72,58 @@ namespace Chat.Main.App
 
             // Populate users
             var userService = serviceLocator.GetService<IUserService>();
-            userService.AddUser(userService.CreateSignUpInfo("Tom", "TomsPassword", "tmitchel2@googlemail.com"));
-            userService.AddUser(userService.CreateSignUpInfo("Aleksas", "AleksasPassword", "aleksas@googlemail.com"));
-            userService.AddUser(userService.CreateSignUpInfo("Mike", "MikesPassword", "mike@googlemail.com"));
+            userService.CreateUser(userService.CreateSignUpInfo("Tom", "TomsPassword", "tmitchel2@googlemail.com"));
+            userService.CreateUser(userService.CreateSignUpInfo("Aleksas", "AleksasPassword", "aleksas@googlemail.com"));
+            userService.CreateUser(userService.CreateSignUpInfo("Mike", "MikesPassword", "mike@googlemail.com"));
 
             // Populate categories
-            var categoryService = (CategoryService) serviceLocator.GetService<ICategoryService>();
-            categoryService.AddCategory(new CategoryWithParents(1, "Everything", new long[] { }));
-            categoryService.AddCategory(new CategoryWithParents(2, "Sport", new long[] { 1 }));
-            categoryService.AddCategory(new CategoryWithParents(3, "Software", new long[] { 1 }));
-            categoryService.AddCategory(new CategoryWithParents(4, "Football Teams", new long[] { 2 }));
-            categoryService.AddCategory(new CategoryWithParents(7, "C#", new long[] { 3 }));
-            categoryService.AddCategory(new CategoryWithParents(8, "Java", new long[] { 3 }));
-            categoryService.AddCategory(new CategoryWithParents(5, "Tottenham Hotspurs", new long[] { 4 }));
-            categoryService.AddCategory(new CategoryWithParents(6, "Chelsea", new long[] { 4 }));
+            var categoryService = serviceLocator.GetService<ICategoryService>();
+            categoryService.CreateCategory(GetCategoryInfo());
 
             // Populate messages
             var messageService = serviceLocator.GetService<IMessageService>();
+        }
+
+        public static CategoryInfo GetCategoryInfo()
+        {
+            return
+                new CategoryInfo("Everything",
+                             new CategoryInfo("News"),
+                             new CategoryInfo("Sport",
+                                          new CategoryInfo("Football",
+                                                       new CategoryInfo("Football Teams",
+                                                                    new CategoryInfo("Manchester United"),
+                                                                    new CategoryInfo("Chelsea"),
+                                                                    new CategoryInfo("Manchester City"),
+                                                                    new CategoryInfo("Arsenal"),
+                                                                    new CategoryInfo("Tottenham Hotspur"),
+                                                                    new CategoryInfo("Liverpool"),
+                                                                    new CategoryInfo("Everton"),
+                                                                    new CategoryInfo("Fulham"),
+                                                                    new CategoryInfo("Stoke"),
+                                                                    new CategoryInfo("Bolton"),
+                                                                    new CategoryInfo("West Brom"),
+                                                                    new CategoryInfo("Newscastle"),
+                                                                    new CategoryInfo("Aston Villa"),
+                                                                    new CategoryInfo("Sunderland"),
+                                                                    new CategoryInfo("Blackburn"),
+                                                                    new CategoryInfo("Wolverhampton"),
+                                                                    new CategoryInfo("Birmingham"),
+                                                                    new CategoryInfo("Blackpool"),
+                                                                    new CategoryInfo("Wigan"),
+                                                                    new CategoryInfo("West Ham"))
+                                              )),
+                             new CategoryInfo("Software",
+                                          new CategoryInfo("Software Language",
+                                                       new CategoryInfo("C#"),
+                                                       new CategoryInfo("Java"),
+                                                       new CategoryInfo("Go"),
+                                                       new CategoryInfo("C"),
+                                                       new CategoryInfo("C++"),
+                                                       new CategoryInfo("Visual Basic"),
+                                                       new CategoryInfo("Python"),
+                                                       new CategoryInfo("Ruby")))
+                    );
         }
     }
 }

@@ -22,6 +22,7 @@
 //
 //
 
+using System.Threading;
 using Chat.Main.Model;
 
 namespace Chat.Main.Services.Factories
@@ -31,14 +32,22 @@ namespace Chat.Main.Services.Factories
     /// </summary>
     public class CategoryFactoryService : ServiceBase, ICategoryFactoryService
     {
+        private long _index;
+
         public CategoryFactoryService(IServiceLocator serviceLocator) 
             : base(serviceLocator)
         {
+            _index = 0;
         }
 
-        public ICategory CreateCategory(long id, string name)
+        public ICategory CreateCategory(ICategoryInfo categoryInfo)
         {
-            return new Category(id, name);
+            return new Category(GetNextIndex(), categoryInfo);
+        }
+
+        private long GetNextIndex()
+        {
+            return Interlocked.Increment(ref _index);
         }
     }
 }

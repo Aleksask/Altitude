@@ -30,6 +30,8 @@ namespace Chat.Main.Services
     {
         IEnumerable<IMessage> GetMessages(IEnumerable<ICategory> categories);
 
-        void PostMessage(IMessage message);
+        void PostMessage(IMessageInfo message);
+        
+        void PostMessages(IEnumerable<IMessageInfo> messages);
     }
 }

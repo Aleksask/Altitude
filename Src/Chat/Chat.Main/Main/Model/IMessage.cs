@@ -31,6 +31,8 @@ namespace Chat.Main.Model
     {
         long Id { get; }
 
+        long AuthorId { get; }
+
         string Value { get; }
 
         long[] CategoryIds { get; }

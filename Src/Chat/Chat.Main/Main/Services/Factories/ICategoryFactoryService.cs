@@ -31,6 +31,6 @@ namespace Chat.Main.Services.Factories
     /// </summary>
     public interface ICategoryFactoryService : IService
     {
-        ICategory CreateCategory(long id, string name);
+        ICategory CreateCategory(ICategoryInfo categoryInfo);
     }
 }
