@@ -39,6 +39,7 @@ namespace Chat.Main.Services
     public class CategoryService : ServiceBase, ICategoryService
     {
         private readonly Dictionary<long, ICategory> _idIndex;
+        private readonly Dictionary<string, ICategory> _nameIndex;
         private readonly Trie<object> _labelIndex;
         private readonly Dictionary<long, List<long>> _isAIndex;
         private readonly Dictionary<long, List<long>> _isAIndexInverse;
@@ -47,6 +48,7 @@ namespace Chat.Main.Services
             : base(serviceLocator)
         {
             _idIndex = new Dictionary<long, ICategory>();
+            _nameIndex = new Dictionary<string, ICategory>();
             _labelIndex = new Trie<object>();
             _isAIndex = new Dictionary<long, List<long>>();
             _isAIndexInverse = new Dictionary<long, List<long>>();
@@ -114,6 +116,21 @@ namespace Chat.Main.Services
             return IdIndex[id];
         }
 
+        public bool TryGetCategory(long id, out ICategory category)
+        {
+            return _idIndex.TryGetValue(id, out category);
+        }
+
+        public ICategory GetCategory(string name)
+        {
+            return _nameIndex[name];
+        }
+
+        public bool TryGetCategory(string name, out ICategory category)
+        {
+            return _nameIndex.TryGetValue(name, out category);
+        }
+
         public IEnumerable<ICategory> GetChildCategories(ICategory category)
         {
             List<long> values;
@@ -142,6 +159,7 @@ namespace Chat.Main.Services
         {
             var category = CategoryFactoryService.CreateCategory(categoryInfo);
             _idIndex.Add(category.Id, category);
+            _nameIndex.Add(category.Name, category);
             _labelIndex.Put(category.Name, category.Id);
 
             if (parentCategory != null)

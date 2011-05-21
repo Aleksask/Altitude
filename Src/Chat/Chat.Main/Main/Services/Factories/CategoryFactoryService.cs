@@ -42,7 +42,7 @@ namespace Chat.Main.Services.Factories
 
         public ICategory CreateCategory(ICategoryInfo categoryInfo)
         {
-            return new Category(GetNextIndex(), categoryInfo.Name);
+            return new Category(GetNextIndex(), categoryInfo);
         }
 
         private long GetNextIndex()

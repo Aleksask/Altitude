@@ -31,9 +31,9 @@ namespace Chat.Main.IO
     /// <summary>
     /// Reads categories from an Rdf xml file
     /// </summary>
-    public class RdfCategoryCursor : Cursor<ICategoryWithParentCategories>
+    public class RdfCategoryCursor : Cursor<ICategory>
     {
-        class CategoryWithParentCategoriesCursor : ICategoryWithParentCategories
+        class CategoryWithParentCategoriesCursor : ICategory
         {
             private readonly IList<long> _parentIds;
             private  long _id;

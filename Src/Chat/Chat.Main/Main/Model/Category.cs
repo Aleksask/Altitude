@@ -32,10 +32,10 @@ namespace Chat.Main.Model
         private readonly long _id;
         private readonly string _name;
         
-        public Category(long id, string name)
+        public Category(long id, ICategoryInfo categoryInfo)
         {
             _id = id;
-            _name = name;
+            _name = categoryInfo.Name;
         }
 
         public long Id

@@ -72,6 +72,8 @@
     <Compile Include="Main\Services\CategoryServiceTestBase.cs" />
     <Compile Include="Main\Services\ConsoleLogServiceTest.cs" />
     <Compile Include="Main\Services\LogServiceTestBase.cs" />
+    <Compile Include="Main\Services\MessageServiceTest.cs" />
+    <Compile Include="Main\Services\MessageServiceTestBase.cs" />
     <Compile Include="Main\Services\ServiceLocatorTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Main\WikiTest.cs" />

@@ -22,6 +22,7 @@
 //
 //
 
+using System.Threading;
 using Chat.Main.Model;
 
 namespace Chat.Main.Services.Factories
@@ -31,14 +32,22 @@ namespace Chat.Main.Services.Factories
     /// </summary>
     public class MessageFactoryService : ServiceBase, IMessageFactoryService
     {
+        private long _index;
+        
         public MessageFactoryService(IServiceLocator serviceLocator)
             : base(serviceLocator)
         {
+            _index = 0;
         }
 
-        public IMessage CreateMessage(long id, string value, long[] categoryIds)
+        public IMessage CreateMessage(IMessageInfo messageInfo)
         {
-            return new Message(id, value, categoryIds);
+            return new Message(GetNextIndex(), messageInfo);
+        }
+
+        private long GetNextIndex()
+        {
+            return Interlocked.Increment(ref _index);
         }
     }
 }

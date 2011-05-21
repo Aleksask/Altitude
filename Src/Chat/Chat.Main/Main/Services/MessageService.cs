@@ -25,14 +25,30 @@
 using System;
 using System.Collections.Generic;
 using Chat.Main.Model;
+using Chat.Main.Services.Factories;
 
 namespace Chat.Main.Services
 {
     public class MessageService : ServiceBase, IMessageService
     {
+        private readonly IDictionary<long, IMessage> _messagesById;
+        private readonly IDictionary<long, IList<long>> _messageIdsByCategoryId;
+
         public MessageService(IServiceLocator serviceLocator) 
             : base(serviceLocator)
         {
+            _messagesById = new Dictionary<long, IMessage>();
+            _messageIdsByCategoryId = new Dictionary<long, IList<long>>();
+        }
+
+        protected IMessageFactoryService MessageFactoryService
+        {
+            get { return ServiceLocator.GetService<IMessageFactoryService>(); }
+        }
+
+        protected ICategoryService CategoryService
+        {
+            get { return ServiceLocator.GetService<ICategoryService>(); }
         }
 
         public IEnumerable<IMessage> GetMessages(IEnumerable<ICategory> categories)
@@ -40,9 +56,26 @@ namespace Chat.Main.Services
             throw new NotImplementedException();
         }
 
-        public void PostMessage(IMessage message)
+        public void PostMessage(IMessageInfo message)
         {
-            throw new NotImplementedException();
+            var msg = MessageFactoryService.CreateMessage(message);
+            _messagesById.Add(msg.Id, msg);
+
+            // Post the message to each category it is tagged with
+            foreach (var categoryId in msg.CategoryIds)
+            {
+                IList<long> msgIds;
+                if (!_messageIdsByCategoryId.TryGetValue(categoryId, out msgIds))
+                    msgIds = new List<long>();
+
+                msgIds.Add(msg.Id);
+            }
+        }
+
+        public void PostMessages(IEnumerable<IMessageInfo> messages)
+        {
+            foreach (var message in messages)
+                PostMessage(message);
         }
     }
 }

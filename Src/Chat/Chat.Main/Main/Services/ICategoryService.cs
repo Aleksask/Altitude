@@ -47,11 +47,34 @@ namespace Chat.Main.Services
         IEnumerable<ICategory> GetSuggestedCategories(string value);
 
         /// <summary>
-        /// Gets a category
+        /// Gets a category by id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         ICategory GetCategory(long id);
+
+        /// <summary>
+        /// Gets a category by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="category"></param>
+        /// <returns></returns>
+        bool TryGetCategory(long id, out ICategory category);
+
+        /// <summary>
+        /// Gets a category by name
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        ICategory GetCategory(string name);
+
+        /// <summary>
+        /// Gets a category by name
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="category"></param>
+        /// <returns></returns>
+        bool TryGetCategory(string name, out ICategory category);
 
         /// <summary>
         /// Gets a categories children

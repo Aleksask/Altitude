@@ -72,9 +72,9 @@ namespace Chat.Main.App
 
             // Populate users
             var userService = serviceLocator.GetService<IUserService>();
-            userService.AddUser(userService.CreateSignUpInfo("Tom", "TomsPassword", "tmitchel2@googlemail.com"));
-            userService.AddUser(userService.CreateSignUpInfo("Aleksas", "AleksasPassword", "aleksas@googlemail.com"));
-            userService.AddUser(userService.CreateSignUpInfo("Mike", "MikesPassword", "mike@googlemail.com"));
+            userService.CreateUser(userService.CreateSignUpInfo("Tom", "TomsPassword", "tmitchel2@googlemail.com"));
+            userService.CreateUser(userService.CreateSignUpInfo("Aleksas", "AleksasPassword", "aleksas@googlemail.com"));
+            userService.CreateUser(userService.CreateSignUpInfo("Mike", "MikesPassword", "mike@googlemail.com"));
 
             // Populate categories
             var categoryService = serviceLocator.GetService<ICategoryService>();

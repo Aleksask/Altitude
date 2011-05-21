@@ -29,10 +29,16 @@ namespace Chat.Main.Services
     {
         ISignUpInfo CreateSignUpInfo(string username, string password, string emailAddress);
 
-        IUser AddUser(ISignUpInfo user);
+        IUser CreateUser(ISignUpInfo user);
 
         void RemoveUser(IUser user);
 
         IUser GetUser(long id);
+
+        bool TryGetUser(long id, out IUser user);
+
+        IUser GetUser(string username);
+
+        bool TryGetUser(string username, out IUser user);
     }
 }
